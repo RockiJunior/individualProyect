@@ -1,0 +1,58 @@
+*Etapa 0
+*Leer varias veces el Readme, comprender todas las consignas y quitar cualquier duda al respecto con el Supervisor del PI.
+*Realizar una abstración sobre los distintos componentes, funciones, filtros function y estructura de datos necesarias.
+
+*Etapa I
+*Generar el modelo entidad relación *
+*Implementar los modelos de Sequelize * 
+*Crear un archivo para cada Entidad *
+*Configurar las relaciones entre ellos en el archivo db.js *
+*Conectar nuestro back-end con Postgres *
+*Crear el .env con las credenciales de Postgres *
+*Crear la base de datos en psql o PGAdmin con el nombre indicado. *
+
+*Fecha limite: 23/07/2021.
+
+*Etapa II
+* Crear en el backend el CRUD (Create, Read, Update, Delete) de lo necesario especificado en el enunciado (VER ENDPOINTS PEDIDOS)
+
+
+
+*Etapa III
+*Revisar con Postman que todas las rutas funcionen correctamente
+*Verificar en la base de datos que se estén persistiendo los datos de forma correctamente
+*IMPORTANTE: Revisar la tabla intermedia del muchos a muchos
+*OJO!: Acuerdense que si no sacan el force: true del index.js de API les va a borrar los datos cada vez que se reinicie el servidor
+
+
+
+
+Etapa IV
+*Crear la página principal (con estilos mínimos, margin, padding, display, position, width, height)
+*Crear la Home (con estilos mínimos): inlcluyendo una barra de búsqueda
+*Configurar Redux: Diseñar que datos se van a almacenar en el Store y pensar que acciones van a necesitar.
+Implementar el reducer y las actions para que inicialmente traiga los primeros resultados que se van a mostrar en la home y renderizarlos
+
+
+
+
+*Etapa V
+*Acción en redux de búsqueda que traiga del back-end el elemento buscado por su nombre o equivalente
+*Paginado (pueden usarse queries para hacer el paginado desde el back-end o filtrar directamente desde el front)
+*IMPORTANTE: NO! usar el paginado de la API externa
+*Filtrado: pueden realizarlo desdel el backend o el frontend (Al menos uno debe estar desde el frontend)
+*NO pueden utilizar el filtrado de la API externa
+*Botones de orden y action asociada
+
+Etapa VI
+*Página de detalle
+*Formulario de creación
+
+
+
+Etapa VII
+Test de componente
+Test de rutas de back-end
+Test de modelo DB
+Hacer correciones.
+
