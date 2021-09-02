@@ -1,30 +1,38 @@
-const { Router } = require('express');
+const {
+    Router
+} = require('express');
 const axios = require('axios');
 const router = Router();
 
-const { Videogame, Genres } = require('../db.js');
-const { API_KEY, API_URL } = process.env;
+const {
+    Videogame,
+    Genres
+} = require('../db.js');
+const {
+    API_KEY,
+    API_URL
+} = process.env;
 
 const getApiVideoGames = async() => {
     let games = [];
     try {
         //`${API_URL}games?key=${API_KEY}&page=${pagina}???
-        let response = await axios.get(`${API_URL}games?key=${API_KEY}`);
-        let resultResponse = response.data.results;
+        const response = await axios.get(`${API_URL}games?key=${API_KEY}`);
+        const resultResponse = response.data.results;
 
-        let pag1 = await axios.get(response.data.next);
-        let resultPag1 = pag1.data.results;
+        const pag1 = await axios.get(response.data.next);
+        const resultPag1 = pag1.data.results;
 
-        let pag2 = await axios.get(response.data.next);
-        let resultPag2 = pag2.data.results;
+        const pag2 = await axios.get(response.data.next);
+        const resultPag2 = pag2.data.results;
 
-        let pag3 = await axios.get(response.data.next);
-        let resultPag3 = pag3.data.results;
+        const pag3 = await axios.get(response.data.next);
+        const resultPag3 = pag3.data.results;
 
-        let pag4 = await axios.get(response.data.next);
-        let resultPag4 = pag4.data.results;
+        const pag4 = await axios.get(response.data.next);
+        const resultPag4 = pag4.data.results;
 
-        let allPages = [...resultResponse, ...resultPag1, ...resultPag2, ...resultPag3, ...resultPag4];
+        const allPages = [...resultResponse, ...resultPag1, ...resultPag2, ...resultPag3, ...resultPag4];
 
         let acc = 1;
         games = await allPages.map(el => {
