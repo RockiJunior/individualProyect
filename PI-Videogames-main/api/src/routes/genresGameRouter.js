@@ -1,4 +1,6 @@
-const { Router } = require('express');
+const {
+    Router
+} = require('express');
 const router = Router();
 const axios = require('axios');
 
@@ -15,17 +17,15 @@ const {
 const getGenresGames = async() => {
     let allGenres = [];
     try {
-        const res = await axios.get(`${API_URL}genres?key=${API_KEY}`);
-        let genres = res.data.results;
-        console.log(genres)
-        allGenres = await genres.map(el => {
-            return {
-                genreId: el.id,
-                genreName: el.name,
-                genreGames: el.games.map(el => el.name),
-            }
+        const response = await axios.get(`${API_URL}genres?key=${API_KEY}`);
+        let genres = response.data.results.map(el => el.name);
+        genres.forEach(el => {
+            Genres.findOrCreate({
+                where: {
+                    name: el
+                }
+            })
         })
-
     } catch (err) {
         allGenres = {
             error: "Can't Fetch Genres",
@@ -34,17 +34,19 @@ const getGenresGames = async() => {
     } finally {
         return allGenres
     }
-
 };
 
+// RUTAS
+
 router.get(`/`, async(req, res) => {
-    const genres = await getGenresGames();
-    if (genres) {
-        res.status(200).send(genres)
+    getGenresGames();
+    const getGenresDB = await Genres.findAll();
+    if (getGenresDB) {
+        res.status(200).send(getGenresDB)
     } else {
-        res.status(404).send("Genre is invalid")
+        res.status(404).send("Genre DB is Empty")
     }
 });
 
-
 module.exports = router;
+// module.exports = { getGenresGames }

@@ -34,13 +34,14 @@ const getApiVideoGames = async() => {
 
         const allPages = [...resultResponse, ...resultPag1, ...resultPag2, ...resultPag3, ...resultPag4];
 
-        let acc = 1;
+        // let acc = 1;
         games = await allPages.map(el => {
             return {
-                acc: acc++,
+                // acc: acc++,
                 id: el.id,
                 name: el.name,
-                description: el.description,
+                image: el.background_image,
+                description: el.platforms.filter(el => el.requirements_en !== null || el.requirements_ru !== null),
                 released: el.released,
                 rating: el.rating,
                 platforms: el.platforms.map(p => p.platform.name)
@@ -102,6 +103,35 @@ router.get('/:id', async(req, res) => {
     } else {
         res.status(200).send(games)
     }
+});
+
+router.post(`/`, async(req, res) => {
+    let {
+        id,
+        name,
+        image,
+        description,
+        released,
+        rating,
+        platforms
+    } = req.body;
+
+    const createVideoGame = await Videogame.create({
+        id,
+        name,
+        image,
+        description,
+        released,
+        rating,
+        platforms
+    });
+
+    const genreGameDB = await Genres.findAll({
+        where: { name: description }
+    });
+
+    createVideoGame.addGenres(genreGameDB);
+    res.status(200).send("Videogame created successfully")
 });
 
 
