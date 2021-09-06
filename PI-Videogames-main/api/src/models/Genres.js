@@ -6,8 +6,10 @@ module.exports = (sequelize) => {
 
     sequelize.define('genres', {
         name: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
         }
+    }, {
+        timestamps: false
     });
 
 };

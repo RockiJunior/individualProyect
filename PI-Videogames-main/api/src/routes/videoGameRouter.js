@@ -44,7 +44,8 @@ const getApiVideoGames = async() => {
                 description: el.platforms.filter(el => el.requirements_en !== null || el.requirements_ru !== null),
                 released: el.released,
                 rating: el.rating,
-                platforms: el.platforms.map(p => p.platform.name)
+                platforms: el.platforms.map(p => p.platform.name),
+                genres: el.genres.map(g => g)
             }
         });
         // console.log(games)
@@ -113,7 +114,8 @@ router.post(`/`, async(req, res) => {
         description,
         released,
         rating,
-        platforms
+        platforms,
+        genres
     } = req.body;
 
     const createVideoGame = await Videogame.create({
@@ -123,11 +125,12 @@ router.post(`/`, async(req, res) => {
         description,
         released,
         rating,
-        platforms
+        platforms,
+        genres
     });
 
-    const genreGameDB = await Genres.findAll({
-        where: { name: description }
+    let genreGameDB = await Genres.findAll({
+        where: { name: genres }
     });
 
     createVideoGame.addGenres(genreGameDB);
