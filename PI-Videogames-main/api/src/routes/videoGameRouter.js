@@ -23,13 +23,13 @@ const getApiVideoGames = async() => {
         const pag1 = await axios.get(response.data.next);
         const resultPag1 = pag1.data.results;
 
-        const pag2 = await axios.get(response.data.next);
+        const pag2 = await axios.get(pag1.data.next);
         const resultPag2 = pag2.data.results;
 
-        const pag3 = await axios.get(response.data.next);
+        const pag3 = await axios.get(pag2.data.next);
         const resultPag3 = pag3.data.results;
 
-        const pag4 = await axios.get(response.data.next);
+        const pag4 = await axios.get(pag3.data.next);
         const resultPag4 = pag4.data.results;
 
         const allPages = [...resultResponse, ...resultPag1, ...resultPag2, ...resultPag3, ...resultPag4];
@@ -45,7 +45,7 @@ const getApiVideoGames = async() => {
                 released: el.released,
                 rating: el.rating,
                 platforms: el.platforms.map(p => p.platform.name),
-                genres: el.genres.map(g => g)
+                genres: el.genres.map(g => g.name)
             }
         });
         // console.log(games)

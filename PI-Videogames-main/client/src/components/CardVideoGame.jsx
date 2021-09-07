@@ -7,15 +7,17 @@ export default function CardVideoGame({
   released,
   rating,
   platforms,
+  genres
 }) {
   return (
     <div>
-      <h3>{name}</h3>
-      <img src={image} alt="Image Not Found" width="200px" height="250px" />
-      <h3>{description}</h3>
-      <h3>{released}</h3>
-      <h3>{rating}</h3>
-      <h3>{platforms}</h3>
+      <h5>{name}</h5>
+      <img src={image} alt="" width="200px" height="250px" />
+      <h5>{description}</h5>
+      <h5>{released}</h5>
+      <h5>{rating}</h5>
+      <h5>{platforms}</h5>
+      <h5>{genres}</h5>
     </div>
   );
 }
