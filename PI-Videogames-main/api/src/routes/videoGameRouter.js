@@ -109,6 +109,7 @@ router.get('/:id', async(req, res) => {
 router.post(`/`, async(req, res) => {
     let {
         id,
+        createdInDB,
         name,
         image,
         description,
@@ -120,6 +121,7 @@ router.post(`/`, async(req, res) => {
 
     const createVideoGame = await Videogame.create({
         id,
+        createdInDB,
         name,
         image,
         description,

@@ -10,6 +10,11 @@ module.exports = (sequelize) => {
             allowNull: false,
             primaryKey: true
         },
+        createdInDB: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: true,
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -25,7 +30,7 @@ module.exports = (sequelize) => {
             type: DataTypes.DATE
         },
         rating: {
-            type: DataTypes.DECIMAL
+            type: DataTypes.FLOAT
         },
         platforms: {
             type: DataTypes.STRING,
