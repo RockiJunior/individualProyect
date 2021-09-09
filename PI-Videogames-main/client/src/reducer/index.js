@@ -1,15 +1,20 @@
 import {
     GET_VIDEOGAMES,
+    GET_VIDEOGAME_NAMES,
+    GET_GENRES,
+    GET_DETAILS,
     FILTER_BY_GENRE,
+    POST_VIDEOGAME,
     FILTER_CREATED,
     ORDER_BY_NAME,
-    GET_VIDEOGAME_NAMES,
-    ORDER_BY_RATING
+    ORDER_BY_RATING,
 } from '../actions/types';
 
 const initialState = {
     videogames: [],
-    allVideogames: []
+    allVideogames: [],
+    genres: [],
+    details: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -27,10 +32,25 @@ function rootReducer(state = initialState, action) {
             };
 
         case GET_VIDEOGAME_NAMES:
-            // const payloadToLowCase = payload.toLowerCase();
             return {
                 ...state,
                 videogames: payload
+            };
+
+        case GET_GENRES:
+            return {
+                ...state,
+                genres: payload
+            };
+
+        case GET_DETAILS:
+            return {
+                ...state,
+                details: payload
+            };
+        case POST_VIDEOGAME:
+            return {
+                ...state
             };
 
         case FILTER_BY_GENRE:
@@ -42,6 +62,7 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 videogames: genresFiltered,
             };
+
         case FILTER_CREATED:
             const createdFiltered = payload === 'Created' ?
                 state.allVideogames.filter(el => el.createdInDB === true) :

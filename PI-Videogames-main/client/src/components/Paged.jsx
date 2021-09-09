@@ -12,9 +12,9 @@ return (
     <nav>
       <ul className='paged'>
           {pageNumbers && pageNumbers.map(n=>(
-              <li className='number' key={n}>
-                  <a onClick={()=> paged(n)}>{n}</a>
-              </li>
+              <div className='numbersButtons' key={n}>
+                  <button className="pagedButtons" onClick={()=> paged(n)}>{n}</button>
+              </div>
           ))}
       </ul>
     </nav>

@@ -9,7 +9,7 @@ import {
   filterVideoGamesByGenres,
   filterCreated,
   orderByName,
-  orderByRating
+  orderByRating,
 } from "../actions/index.js";
 //Components
 import CardVideoGame from "./CardVideoGame";
@@ -26,10 +26,11 @@ export default function Home() {
 
   //Todos los juegos del estado.
   const allVideoGames = useSelector((state) => state.videogames);
-  
+  const genres = useSelector((state) => state.genres);
+
   //Estado local vacio para el ordenamiento por nombre
   const [orderName, setOrderName] = useState('');
-  
+
   //Estado local vacio para el ordenamiento por rating
   const [orderRating, setOrderRating] = useState('');
 
@@ -74,50 +75,47 @@ export default function Home() {
     setCurrentPage(1);
     setOrderName(`Ordered ${e.target.value}`);
   }
-  
-  function handleOrderByRating(e){
+
+  function handleOrderByRating(e) {
     dispatch(orderByRating(e.target.value));
     setOrderRating(`Ordered ${e.target.value}`);
   }
 
   return (
     <div>
-      <Link to="/videogames">Create Videogame</Link>
+      <Link to="/videogame">Create Videogame</Link>
       <h1>Hola Mundo</h1>
-      <button onClick={(e) => {handleClick(e)}}>Refresh all Videogames</button>
-      
+      <button onClick={(e) => { handleClick(e) }}>Refresh all Videogames</button>
+
       <div>
-        
-        <select onChange={(e) => {handleOrderByName(e)}}>
-        <option value="">--Order Alphabetically--</option>
+
+        <select onChange={(e) => { handleOrderByName(e) }}>
+          <option value="">--Order Alphabetically--</option>
           <option value="asc">Ascendant</option>
           <option value="desc">Descendent</option>
         </select>
 
-        <select onChange={(e) => {handleOrderByRating(e)}}>
-        <option value="">--Rating--</option>
+        <select onChange={(e) => { handleOrderByRating(e) }}>
+          <option value="">--Rating--</option>
           <option value="max">Max Rating</option>
           <option value="min">Min Rating</option>
-        </select> 
-
-        <select required onChange={(e) => {handleFilterGenres(e)}}>
-          <option value="">--Genres--</option>
-          <option value="All">All</option>
-          <option value="Action">Action</option>
-          <option value="Adventure">Adventure</option>
-          <option value="Shooter">Shooter</option>
-          <option value="Simulation">Simulation</option>
         </select>
 
-      
-        <select onChange={(e) => {handleFilterCreated(e)}}>
+        <select required onChange={(e) => { handleFilterGenres(e) }}>
+            {genres.map((el)=>(
+              <option key={el.id} value={el.name}>{el.name}</option>
+            ))}
+        </select>
+
+
+        <select onChange={(e) => { handleFilterCreated(e) }}>
           <option value="">--Filter Games--</option>
           <option value="All">All Games</option>
           <option value="Created">Created Games</option>
           <option value="From Api">Api Games</option>
         </select>
 
-        <SearchBar/>
+        <SearchBar />
 
         <Paged
           videoGamesPP={videoGamesPP}
@@ -128,17 +126,17 @@ export default function Home() {
         {currentVideoGames?.map((vg) => {
           return (
             <div key={vg.id}>
-              <Link to={`/home/${vg.id}`}>              
-              <CardVideoGame
-                name={vg.name}
-                image={vg.image}
-                genres={vg.genres.map((el) => el).join(" ")}
-              />
+              <Link to={`/videogames/${vg.id}`}>
+                <CardVideoGame
+                  name={vg.name}
+                  image={vg.image ? vg.image : <img src="https://media.rawg.io/media/games/a8b/a8bf6f31bfbdaf7d4b86c1953c62cee0.jpg" />}
+                  genres={vg.genres.map((el) => el).join(" ")}
+                />
               </Link>
             </div>
           );
         })}
-      
+
       </div>
 
     </div>
