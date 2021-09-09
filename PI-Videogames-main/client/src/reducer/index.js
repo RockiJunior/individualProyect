@@ -1,4 +1,11 @@
-import { GET_VIDEOGAMES, FILTER_BY_GENRE, FILTER_CREATED, ORDER_BY_NAME } from '../actions/types';
+import {
+    GET_VIDEOGAMES,
+    FILTER_BY_GENRE,
+    FILTER_CREATED,
+    ORDER_BY_NAME,
+    GET_VIDEOGAME_NAMES,
+    ORDER_BY_RATING
+} from '../actions/types';
 
 const initialState = {
     videogames: [],
@@ -6,7 +13,10 @@ const initialState = {
 };
 
 function rootReducer(state = initialState, action) {
-    const { type, payload } = action;
+    const {
+        type,
+        payload
+    } = action;
 
     switch (type) {
         case GET_VIDEOGAMES:
@@ -14,15 +24,23 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 videogames: payload,
                 allVideogames: payload
-            }
-        case FILTER_BY_GENRE:
-            const allVideogames = state.allVideogames;
-            const statusFiltered = payload === 'All' ?
-                allVideogames :
-                allVideogames.filter(el => el.genres.includes(payload))
+            };
+
+        case GET_VIDEOGAME_NAMES:
+            // const payloadToLowCase = payload.toLowerCase();
             return {
                 ...state,
-                videogames: statusFiltered,
+                videogames: payload
+            };
+
+        case FILTER_BY_GENRE:
+            const allVideogames = state.allVideogames;
+            const genresFiltered = payload === 'All' ?
+                allVideogames :
+                allVideogames.filter(el => el.genres.includes(payload));
+            return {
+                ...state,
+                videogames: genresFiltered,
             };
         case FILTER_CREATED:
             const createdFiltered = payload === 'Created' ?
@@ -31,7 +49,35 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 videogames: createdFiltered
-            }
+            };
+
+        case ORDER_BY_RATING:
+            const ratingFiltered = payload === 'max' ? state.allVideogames.sort((a, b) => {
+                    if (a.rating < b.rating) {
+                        return 1
+                    }
+                    if (b.rating < a.rating) {
+                        return -1
+                    } else {
+                        return 0
+                    }
+                }) :
+                state.allVideogames.sort((a, b) => {
+                    if (a.rating < b.rating) {
+                        return -1
+                    }
+                    if (b.rating < a.rating) {
+                        return 1
+                    } else {
+                        return 0
+                    }
+                });
+            return {
+                ...state,
+                videogames: ratingFiltered
+            };
+
+
         case ORDER_BY_NAME:
             const sortedArr = payload === 'asc' ? state.allVideogames.sort((a, b) => {
                     if (a.name > b.name) {
@@ -52,11 +98,12 @@ function rootReducer(state = initialState, action) {
                     } else {
                         return 0
                     }
-                })
+                });
             return {
                 ...state,
                 videogames: sortedArr
-            }
+            };
+
         default:
             return state;
 

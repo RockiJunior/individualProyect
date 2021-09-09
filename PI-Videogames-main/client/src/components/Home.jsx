@@ -9,15 +9,17 @@ import {
   filterVideoGamesByGenres,
   filterCreated,
   orderByName,
+  orderByRating
 } from "../actions/index.js";
 //Components
 import CardVideoGame from "./CardVideoGame";
 import Paged from "./Paged";
+import SearchBar from "./SearchBar";
 
 export default function Home() {
   // traigo el dispatch
   const dispatch = useDispatch(); //dispatch para el redux
-  
+  //el dispatcher de redux que ejecuta el get, pasado al useEffect
   useEffect(() => {
     dispatch(getVideoGames());
   }, [dispatch]);
@@ -25,8 +27,11 @@ export default function Home() {
   //Todos los juegos del estado.
   const allVideoGames = useSelector((state) => state.videogames);
   
-  //Estado local vacio para el ordenamiento
-  const [order, setOrder] = useState('');
+  //Estado local vacio para el ordenamiento por nombre
+  const [orderName, setOrderName] = useState('');
+  
+  //Estado local vacio para el ordenamiento por rating
+  const [orderRating, setOrderRating] = useState('');
 
   //======PAGINADO=====
   //Estado de la pagina actual y la cantitad.
@@ -67,23 +72,36 @@ export default function Home() {
     e.preventDefault(e);
     dispatch(orderByName(e.target.value));
     setCurrentPage(1);
-    setOrder(`Ordered ${e.target.value}`);
+    setOrderName(`Ordered ${e.target.value}`);
+  }
+  
+  function handleOrderByRating(e){
+    dispatch(orderByRating(e.target.value));
+    setOrderRating(`Ordered ${e.target.value}`);
   }
 
   return (
     <div>
       <Link to="/videogames">Create Videogame</Link>
       <h1>Hola Mundo</h1>
-      <button onClick={(e) => {handleClick(e)}}>Volver a cargar los videoJuegos</button>
+      <button onClick={(e) => {handleClick(e)}}>Refresh all Videogames</button>
       
       <div>
         
         <select onChange={(e) => {handleOrderByName(e)}}>
-          <option value="asc">Ascendente</option>
-          <option value="desc">Descendente</option>
+        <option value="">--Order Alphabetically--</option>
+          <option value="asc">Ascendant</option>
+          <option value="desc">Descendent</option>
         </select>
 
-        <select onChange={(e) => {handleFilterGenres(e)}}>
+        <select onChange={(e) => {handleOrderByRating(e)}}>
+        <option value="">--Rating--</option>
+          <option value="max">Max Rating</option>
+          <option value="min">Min Rating</option>
+        </select> 
+
+        <select required onChange={(e) => {handleFilterGenres(e)}}>
+          <option value="">--Genres--</option>
           <option value="All">All</option>
           <option value="Action">Action</option>
           <option value="Adventure">Adventure</option>
@@ -91,11 +109,15 @@ export default function Home() {
           <option value="Simulation">Simulation</option>
         </select>
 
+      
         <select onChange={(e) => {handleFilterCreated(e)}}>
+          <option value="">--Filter Games--</option>
           <option value="All">All Games</option>
           <option value="Created">Created Games</option>
           <option value="From Api">Api Games</option>
         </select>
+
+        <SearchBar/>
 
         <Paged
           videoGamesPP={videoGamesPP}
