@@ -1,23 +1,33 @@
 import React from "react";
+import styles from './styles/CardVideoGame.module.css';
 
-export default function CardVideoGame({
-  name,
-  image,
-  description,
-  released,
-  rating,
-  platforms,
-  genres
-}) {
+export default function CardVideoGame(props) {
+  const {
+    name,
+    image,
+    genres,
+  } = props;
+
+
+  const { cardVG, cardName, cardImage, cardGenres } = styles;
+
+  console.log(JSON.stringify(genres));
   return (
-    <div>
-      <h5>{name}</h5>
-      <img src={image} alt="" width="200px" height="250px" />
-      <h5>{description}</h5>
-      <h5>{released}</h5>
-      <h5>{rating}</h5>
-      <h5>{platforms}</h5>
-      <h5>{genres}</h5>
+
+    <div className={cardVG}>
+
+      <div className={cardName}>
+        <h5>{name}</h5>
+      </div>
+
+      <div className={cardImage} style={{backgroundImage: `url(${image})`}}>
+        {/* <img src={image} alt="" /> */}
+      </div>
+
+      <div className={cardGenres}>
+        <h5>{genres}</h5>
+      </div>
+
     </div>
   );
 }

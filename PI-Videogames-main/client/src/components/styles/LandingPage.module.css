@@ -1,0 +1,46 @@
+.title {
+    position: absolute;
+    margin: 3rem 30rem;
+    display: flex;
+    color: rgba(187, 232, 232, 0.57);
+    font-family: 'Bungee';
+    font-size: 25px;
+    -webkit-text-stroke: 2px black;
+}
+
+.subtitle {
+    position: absolute;
+    margin: 15rem 20rem;
+    display: flex;
+    font-family: 'Bungee';
+    font-size: 20px;
+    -webkit-text-stroke: 2px black;
+    color: #B2EBF2;
+}
+
+.containerButton {
+    position: absolute;
+    margin: 27rem 50.5rem;
+    display: flex;
+    height: 5rem;
+    width: 5rem;
+}
+
+.button {
+    font-family: 'Bungee';
+    font-size: 35px;
+    -webkit-text-stroke: 3px black;
+    height: 5rem;
+    width: 5rem;
+    border: 3px solid #B2EBF2;
+    border-radius: 999px;
+    background-color: transparent;
+    color: rgba(142, 255, 255, 0.986);
+}
+
+.button:hover {
+    transition: 1s;
+    background-color: #B2EBF2;
+    color: black;
+    border: 3px solid black;
+}

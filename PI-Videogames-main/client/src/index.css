@@ -1,9 +1,23 @@
 body {
     margin: 0;
-    background-image: url(./img/technology-3189176_1920.jpg);
+    background-image: url(./img/controller-2618897_1920.jpg);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+p.danger {
+    color: #AF0404;
+    font-family: 'Press Start 2P';
+    font-size: 12px;
+}
+
+input.danger {
+    border: 2px solid red;
 }
 
 code {

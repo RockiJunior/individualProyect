@@ -1,7 +1,8 @@
 .App {
     text-align: center;
-    background-image: url(./img/video-controller-336657_1920.jpg);
+    background-image: url(./img/controller-2618897_1920.jpg);
     background-repeat: no-repeat;
-    min-height: 100vh;
+    background-attachment: fixed;
+    background-position: center;
     background-size: cover;
 }

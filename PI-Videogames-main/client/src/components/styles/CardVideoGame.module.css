@@ -1,0 +1,44 @@
+.cardVG {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 60px;
+}
+
+.cardName {
+    display: flex;
+    font-family: 'Bungee';
+    font-size: 30px;
+    width: 100%;
+}
+
+.cardName h5 {
+    margin: 0;
+    text-decoration: none;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.cardImage {
+    height: 300px;
+    width: 500px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    margin-top: 10px;
+    border-radius: 50px;
+}
+
+.cardGenres {
+    display: flex;
+    font-family: 'Bungee';
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.cardGenres h5 {
+    margin: 0;
+}

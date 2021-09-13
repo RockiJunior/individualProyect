@@ -5,7 +5,19 @@ import Home from "./components/Home";
 import CreateGame from './components/CreateGame';
 import Details from './components/Details'
 
+import {useDispatch} from 'react-redux';
+import {useEffect} from 'react';
+import {getVideoGames, getGenres} from './actions/index';
+
 function App() {
+  
+  const dispatch = useDispatch();
+
+  useEffect(() =>{
+    dispatch(getVideoGames());
+    dispatch(getGenres());
+  }, []);
+  
   return (
     <Router>
       <div className="App">

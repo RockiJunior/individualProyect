@@ -1,6 +1,6 @@
 //instalations
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 //Actions
@@ -11,18 +11,24 @@ import {
   orderByName,
   orderByRating,
 } from "../actions/index.js";
+
 //Components
 import CardVideoGame from "./CardVideoGame";
 import Paged from "./Paged";
 import SearchBar from "./SearchBar";
 
+//Styles
+import styles from './styles/Home.module.css';
+
 export default function Home() {
+  const { containerCard } = styles;
+
   // traigo el dispatch
   const dispatch = useDispatch(); //dispatch para el redux
   //el dispatcher de redux que ejecuta el get, pasado al useEffect
-  useEffect(() => {
-    dispatch(getVideoGames());
-  }, [dispatch]);
+
+  //en vez de llamar el useEffect en el home, lo haces en el app.js
+
 
   //Todos los juegos del estado.
   const allVideoGames = useSelector((state) => state.videogames);
@@ -102,9 +108,9 @@ export default function Home() {
         </select>
 
         <select required onChange={(e) => { handleFilterGenres(e) }}>
-            {genres.map((el)=>(
-              <option key={el.id} value={el.name}>{el.name}</option>
-            ))}
+          {genres.map((el) => (
+            <option key={el.id} value={el.name}>{el.name}</option>
+          ))}
         </select>
 
 
@@ -123,19 +129,24 @@ export default function Home() {
           paged={paged}
         />
 
-        {currentVideoGames?.map((vg) => {
-          return (
-            <div key={vg.id}>
-              <Link to={`/videogames/${vg.id}`}>
-                <CardVideoGame
-                  name={vg.name}
-                  image={vg.image ? vg.image : <img src="https://media.rawg.io/media/games/a8b/a8bf6f31bfbdaf7d4b86c1953c62cee0.jpg" />}
-                  genres={vg.genres.map((el) => el).join(" ")}
-                />
-              </Link>
-            </div>
-          );
-        })}
+        <div className={containerCard}>
+
+          {currentVideoGames?.map((vg) => {
+            return (
+              <div key={vg.id} style={{maxWidth: "30%", margin: "20px"}}>
+                <Link to={`/videogames/${vg.id}`} style={{textDecoration: "none"}}>
+                  <CardVideoGame 
+                    name={vg.name}
+                    image={vg.image ? vg.image : "https://media.rawg.io/media/games/a8b/a8bf6f31bfbdaf7d4b86c1953c62cee0.jpg"}
+                    genres={vg.createdInDB? vg.genres.map((el) => el.name).join(' '): vg.genres}
+                  />
+                </Link>
+              </div>
+            );
+          })}
+
+        </div>
+
 
       </div>
 
