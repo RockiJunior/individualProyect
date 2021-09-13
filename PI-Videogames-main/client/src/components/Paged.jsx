@@ -17,7 +17,7 @@ export default function Paged(props) {
 
   return (
     <nav>
-      <ul className='paged'>
+      <ul>
         {pageNumbers && pageNumbers.map(n => (
           <div className={numbersButtons} key={n}>
             <button className={pagedButtons} onClick={() => paged(n)}>{n}</button>

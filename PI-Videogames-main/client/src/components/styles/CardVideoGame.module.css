@@ -3,7 +3,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 80%;
     margin: 60px;
+    border: solid 3px black;
+    background: rgba( 255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37);
+    backdrop-filter: blur( 18px);
+    -webkit-backdrop-filter: blur( 18px);
+    border: 1px solid rgba( 255, 255, 255, 0.18);
+    border-radius: 50px;
 }
 
 .cardName {
@@ -20,11 +28,12 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    color: rgba(142, 255, 255, 0.986);
 }
 
 .cardImage {
     height: 300px;
-    width: 500px;
+    width: 380px;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -41,4 +50,5 @@
 
 .cardGenres h5 {
     margin: 0;
+    color: rgba(142, 255, 255, 0.986);
 }

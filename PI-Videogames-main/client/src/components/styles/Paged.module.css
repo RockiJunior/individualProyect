@@ -1,5 +1,26 @@
 .numbersButtons {
-    display: inline;
+    display: inline-block
 }
 
-.pagedButtons {}
+.pagedButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    width: 80px;
+    margin: 10px;
+    font-family: 'Bungee';
+    font-size: 30px;
+    -webkit-text-stroke: 3px black;
+    border: 3px solid #B2EBF2;
+    border-radius: 999px;
+    background-color: transparent;
+    color: rgba(142, 255, 255, 0.986);
+}
+
+.pagedButtons:hover {
+    transition: 1s;
+    background-color: #B2EBF2;
+    color: black;
+    border: 3px solid black;
+}

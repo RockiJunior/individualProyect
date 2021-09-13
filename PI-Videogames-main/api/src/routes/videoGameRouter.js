@@ -3,15 +3,18 @@ const {
 } = require('express');
 const axios = require('axios');
 const router = Router();
+const {
+    DB_NAME,
+    API_KEY,
+    API_URL,
+} = process.env;
+
+const { connection } = require('../db.js');
 
 const {
     Videogame,
     Genres
-} = require('../db.js');
-const {
-    API_KEY,
-    API_URL
-} = process.env;
+} = connection(DB_NAME);
 
 const getApiVideoGames = async() => {
     let games = [];

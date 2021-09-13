@@ -21,7 +21,7 @@ import SearchBar from "./SearchBar";
 import styles from './styles/Home.module.css';
 
 export default function Home() {
-  const { containerCard } = styles;
+
 
   // traigo el dispatch
   const dispatch = useDispatch(); //dispatch para el redux
@@ -61,7 +61,6 @@ export default function Home() {
   //======PAGINADO=====//
 
   //Functions & Methods
-
   function handleClick(e) {
     e.preventDefault();
     dispatch(getVideoGames());
@@ -87,41 +86,54 @@ export default function Home() {
     setOrderRating(`Ordered ${e.target.value}`);
   }
 
+  //styles
+  const { gral, containerCard, filterBar, containerRefreshButton, refreshButton, title } = styles;
+
+
   return (
     <div>
-      <Link to="/videogame">Create Videogame</Link>
-      <h1>Hola Mundo</h1>
-      <button onClick={(e) => { handleClick(e) }}>Refresh all Videogames</button>
+      <div className={gral}>
+        <div className={filterBar}>
 
-      <div>
+          <select onChange={(e) => { handleOrderByName(e) }}>
+            <option value="">--Order Alphabetically--</option>
+            <option value="asc">Ascendant</option>
+            <option value="desc">Descendent</option>
+          </select>
 
-        <select onChange={(e) => { handleOrderByName(e) }}>
-          <option value="">--Order Alphabetically--</option>
-          <option value="asc">Ascendant</option>
-          <option value="desc">Descendent</option>
-        </select>
+          <select onChange={(e) => { handleOrderByRating(e) }}>
+            <option value="">--Rating--</option>
+            <option value="max">Max Rating</option>
+            <option value="min">Min Rating</option>
+          </select>
 
-        <select onChange={(e) => { handleOrderByRating(e) }}>
-          <option value="">--Rating--</option>
-          <option value="max">Max Rating</option>
-          <option value="min">Min Rating</option>
-        </select>
+          <select onChange={(e) => { handleFilterGenres(e) }}>
+            <option>--Genres--</option>
+            {genres.map((el) => (
+              <option key={el.id} value={el.name}>{el.name}</option>
+            ))}
+          </select>
 
-        <select required onChange={(e) => { handleFilterGenres(e) }}>
-          {genres.map((el) => (
-            <option key={el.id} value={el.name}>{el.name}</option>
-          ))}
-        </select>
+          <select onChange={(e) => { handleFilterCreated(e) }}>
+            <option value="">--Filter Games--</option>
+            <option value="All">All Games</option>
+            <option value="Created">Created Games</option>
+            <option value="From Api">Api Games</option>
+          </select>
+
+          <SearchBar />
+          <Link to="/videogame">Create Videogame</Link>
+
+        </div>
+
+        <div className={title}>
+          <h1>Video Game Api</h1>
+        </div>
 
 
-        <select onChange={(e) => { handleFilterCreated(e) }}>
-          <option value="">--Filter Games--</option>
-          <option value="All">All Games</option>
-          <option value="Created">Created Games</option>
-          <option value="From Api">Api Games</option>
-        </select>
-
-        <SearchBar />
+        <div className={containerRefreshButton}>
+          <button className={refreshButton} onClick={(e) => { handleClick(e) }}>Refresh</button>
+        </div>
 
         <Paged
           videoGamesPP={videoGamesPP}
@@ -133,12 +145,12 @@ export default function Home() {
 
           {currentVideoGames?.map((vg) => {
             return (
-              <div key={vg.id} style={{maxWidth: "30%", margin: "20px"}}>
-                <Link to={`/videogames/${vg.id}`} style={{textDecoration: "none"}}>
-                  <CardVideoGame 
+              <div key={vg.id} style={{ maxWidth: "30%", margin: "20px" }}>
+                <Link to={`/videogames/${vg.id}`} style={{ textDecoration: "none" }}>
+                  <CardVideoGame
                     name={vg.name}
                     image={vg.image ? vg.image : "https://media.rawg.io/media/games/a8b/a8bf6f31bfbdaf7d4b86c1953c62cee0.jpg"}
-                    genres={vg.createdInDB? vg.genres.map((el) => el.name).join(' '): vg.genres}
+                    genres={vg.createdInDB ? vg.genres.map((el) => el.name).join(' ') : vg.genres.join(' - ')}
                   />
                 </Link>
               </div>

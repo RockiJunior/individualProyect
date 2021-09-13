@@ -4,3 +4,49 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+
+.title h1 {
+    width: 100px;
+    font-family: 'Bungee';
+    font-size: 20px;
+    -webkit-text-stroke: 1px black;
+    background-color: blue;
+}
+
+.containerRefreshButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.refreshButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+    font-family: 'Bungee';
+    font-size: 20px;
+    -webkit-text-stroke: 1px black;
+    color: rgba(142, 255, 255, 0.986);
+    border-radius: 999px;
+    border: 1px solid #B2EBF2;
+    background-color: transparent;
+}
+
+.refreshButton:hover {
+    transition: 1s;
+    background-color: #B2EBF2;
+    color: black;
+    border: 1px solid black;
+}
+
+.filterBar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: red;
+    align-items: center;
+    height: 40px;
+}

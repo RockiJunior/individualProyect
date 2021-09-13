@@ -11,7 +11,7 @@ export default function CardVideoGame(props) {
 
   const { cardVG, cardName, cardImage, cardGenres } = styles;
 
-  console.log(JSON.stringify(genres));
+  // console.log(JSON.stringify(genres));
   return (
 
     <div className={cardVG}>
@@ -20,9 +20,7 @@ export default function CardVideoGame(props) {
         <h5>{name}</h5>
       </div>
 
-      <div className={cardImage} style={{backgroundImage: `url(${image})`}}>
-        {/* <img src={image} alt="" /> */}
-      </div>
+      <div className={cardImage} style={{backgroundImage: `url(${image})`}}/>
 
       <div className={cardGenres}>
         <h5>{genres}</h5>

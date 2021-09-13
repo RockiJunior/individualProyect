@@ -9,17 +9,6 @@ import styles from './styles/CreateGame.module.css';
 
 
 export default function CreateGame() {
-    const {
-        formulary,
-        sName,
-        sImage,
-        sDescr,
-        sRel,
-        sRat,
-        sPlat,
-        sGenres,
-        submit } = styles;
-
     const dispatch = useDispatch();
     const genres = useSelector((state) => state.genres);
 
@@ -52,8 +41,9 @@ export default function CreateGame() {
             errors.rating = "A Rating Number is Required"
         } if (!form.platforms) {
             errors.platforms = "A Platform is Required"
+        } else{
+            return errors;
         }
-        return errors;
     };
 
     function handleChange(e) {
@@ -95,12 +85,25 @@ export default function CreateGame() {
         }
     }
 
+    const {
+        formulary,
+        sName,
+        sImage,
+        sDescr,
+        sRel,
+        sRat,
+        sPlat,
+        sGenres,
+        submit,
+        containerBB,
+        backButton } = styles;
+
+
     return (
         <div>
-            <Link to='/home' >
-                <button>Back</button>
-            </Link>
+
             <h1>Create Your VideoGame</h1>
+
             <form className={formulary} onSubmit={(e) => handleSubmit(e)} onKeyPress={(e) => {
                 if (e.key === "Enter") {
                     handleSubmit(e)
@@ -120,7 +123,7 @@ export default function CreateGame() {
                 </div>
 
                 <div className={sDescr} >
-                    <input className={errors.description && 'danger'} type="text" placeholder="Description..." value={form.description}  name="description" onChange={(e) => { handleChange(e) }} />
+                    <input className={errors.description && 'danger'} type="text" placeholder="Description..." value={form.description} name="description" onChange={(e) => { handleChange(e) }} />
                     {errors.description && (
                         <p className={errors.description && 'danger'}>{errors.description}</p>
                     )}
@@ -162,9 +165,17 @@ export default function CreateGame() {
 
                 </div>
 
-                <div className={submit} >
-                    <input type="submit" value="Create" />
+                <div>
+                    <input className={submit} type="submit" value="Create" />
                 </div>
+
+                <div className={containerBB}>
+                    <Link to='/home' >
+                        <button className={backButton}>Back</button>
+                    </Link>
+                </div>
+
+
             </form>
         </div>
     )

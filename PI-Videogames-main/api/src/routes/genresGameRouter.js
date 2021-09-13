@@ -5,14 +5,19 @@ const router = Router();
 const axios = require('axios');
 
 const {
-    Videogame,
-    Genres
-} = require('../db.js');
+    DB_NAME,
+    API_KEY,
+    API_URL,
+} = process.env;
+
+const { connection } = require('../db.js');
 
 const {
-    API_KEY,
-    API_URL
-} = process.env;
+    Videogame,
+    Genres
+} = connection(DB_NAME);
+
+
 
 const getGenresGames = async() => {
     let allGenres = [];
