@@ -162,3 +162,13 @@ option {
     color: black;
     border: 1px solid black;
 }
+
+.creater {
+    margin: 10px;
+    padding: 10px;
+}
+
+.creater button {
+    border: 1px solid black;
+    border-radius: 999px;
+}

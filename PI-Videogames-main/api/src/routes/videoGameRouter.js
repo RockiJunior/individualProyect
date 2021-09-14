@@ -9,7 +9,9 @@ const {
     API_URL,
 } = process.env;
 
-const { connection } = require('../db.js');
+const {
+    connection
+} = require('../db.js');
 
 const {
     Videogame,
@@ -135,11 +137,21 @@ router.post(`/`, async(req, res) => {
     });
 
     let genreGameDB = await Genres.findAll({
-        where: { name: genres }
+        where: {
+            name: genres
+        }
     });
+
+    console.log(createVideoGame);
 
     createVideoGame.addGenres(genreGameDB);
     res.status(200).send("Videogame created successfully")
+});
+
+router.delete('/:id', async(req, res) => {
+    const id = req.params.id;
+    await Videogame.destroy({ where: { id: id } }, { truncate: false })
+    res.status(200).send("Video Game Deleted Successfully");
 });
 
 

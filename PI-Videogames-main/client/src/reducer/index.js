@@ -8,6 +8,7 @@ import {
     FILTER_CREATED,
     ORDER_BY_NAME,
     ORDER_BY_RATING,
+    DELETE_VIDEO_GAME_DB,
 } from '../actions/types';
 
 const initialState = {
@@ -48,9 +49,17 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 details: payload
             };
+
         case POST_VIDEOGAME:
             return {
                 ...state
+            };
+
+        case DELETE_VIDEO_GAME_DB:
+            const eliminated = state.allVideogames.filter(el => el.id !== payload)
+            return {
+                ...state,
+                videogames: eliminated
             };
 
         case FILTER_BY_GENRE:
@@ -100,7 +109,8 @@ function rootReducer(state = initialState, action) {
 
 
         case ORDER_BY_NAME:
-            const sortedArr = payload === 'asc' ? state.allVideogames.sort((a, b) => {
+            const sortedArr = payload === 'asc' ?
+                state.allVideogames.sort((a, b) => {
                     if (a.name > b.name) {
                         return 1
                     }

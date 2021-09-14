@@ -70,6 +70,20 @@ export function postVideoGame(payload) {
     }
 };
 
+export function deleteVideoGameDB(id) {
+    return async function() {
+        try {
+            let response = await axios.delete(`http://localhost:3001/videogames/${id}`)
+            return response.data;
+        } catch (err) {
+            return {
+                error: "Can't Delete Videogame",
+                originalError: err
+            }
+        }
+    }
+};
+
 export function getDetails(id) {
     return async function(dispatch) {
         try {

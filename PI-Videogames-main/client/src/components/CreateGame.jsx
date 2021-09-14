@@ -8,7 +8,7 @@ import { postVideoGame, getGenres } from '../actions/index';
 import styles from './styles/CreateGame.module.css';
 
 
-export default function CreateGame() {
+export default function CreateGame(props) {
     const dispatch = useDispatch();
     const genres = useSelector((state) => state.genres);
 
@@ -46,6 +46,7 @@ export default function CreateGame() {
         }
     };
 
+    
     function handleChange(e) {
         setForm({
             ...form,
@@ -106,7 +107,8 @@ export default function CreateGame() {
         sGenres,
         submit,
         containerBB,
-        backButton } = styles;
+        backButton,
+        creater } = styles;
 
 
     return (
@@ -146,7 +148,7 @@ export default function CreateGame() {
                     )}
                 </div>
 
-                <div ClassName={sRat} >
+                <div className={sRat} >
                     <input className={errors.rating && 'danger'} type="number" placeholder="Rating..." value={form.rating} name="rating" step="0.1" max="5.0" min="0.1" onChange={(e) => { handleChange(e) }} />
                     {errors.rating && (
                         <p className={errors.rating && 'danger'}>{errors.rating}</p>
@@ -169,9 +171,9 @@ export default function CreateGame() {
                     </select>
                     <ul>
                         {form.genres.map((el, i) =>
-                            <div>
-                                <li key={i + 1}>{el}</li>
-                                <button onClick={() => { handleDelete(el.i) }}>X</button>
+                            <div className={creater} key={i}>
+                                <li>{el}</li>
+                                <button onClick={() => { handleDelete(el) }}>X</button>
                             </div>
                         )}
                     </ul>
