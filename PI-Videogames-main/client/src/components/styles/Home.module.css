@@ -5,12 +5,19 @@
     justify-content: center;
 }
 
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
 .title h1 {
-    width: 100px;
     font-family: 'Bungee';
-    font-size: 20px;
+    font-size: 50px;
     -webkit-text-stroke: 1px black;
-    background-color: blue;
+    color: rgba(142, 255, 255, 0.986);
+    margin: 0;
 }
 
 .containerRefreshButton {
@@ -46,7 +53,44 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: red;
+    background-color: transparent;
     align-items: center;
+    margin: 0;
+    padding: 0;
     height: 40px;
+}
+
+.filterBar select {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    height: 40px;
+    font-family: 'Bungee';
+    font-size: 15px;
+    color: rgba(142, 255, 255, 0.986);
+    border: none;
+    background-color: transparent;
+}
+
+select,
+option {
+    color: black;
+}
+
+.linkCreate {
+    font-family: 'Bungee';
+    font-size: 18px;
+    color: rgba(142, 255, 255, 0.986);
+    border: 1px solid #B2EBF2;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.linkCreate:hover {
+    transition: 1s;
+    background-color: #B2EBF2;
+    color: black;
+    border: 1px solid black;
 }

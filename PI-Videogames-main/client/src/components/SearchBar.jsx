@@ -11,7 +11,7 @@ export default function SearchBar() {
     const dispatch = useDispatch();
     //Estado local para el name
     const [name, setName] = useState('');
-    const {searchbutton, searchBar} = styles;
+    const {searchButton, searchBar} = styles;
 
     function handleInputChange(e) {
         e.preventDefault();
@@ -25,8 +25,8 @@ export default function SearchBar() {
 
     return (
         <div>
-            <input className={searchBar} type="text" placeholder="Search your game" onChange={(e) => { handleInputChange(e) }} />
-            <button className={searchbutton} type="submit" onClick={(e)=> handleSubmit(e)}>Search</button>
+            <input className={searchBar} type="text" placeholder="search game" style={{textAlign: 'center'}}onChange={(e) => { handleInputChange(e) }} />
+            <button className={searchButton} type="submit" onClick={(e)=> handleSubmit(e)}>Search</button>
         </div>
     );
 

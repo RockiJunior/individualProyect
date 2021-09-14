@@ -87,8 +87,15 @@ export default function Home() {
   }
 
   //styles
-  const { gral, containerCard, filterBar, containerRefreshButton, refreshButton, title } = styles;
-
+  const {
+    gral,
+    containerCard,
+    filterBar,
+    containerRefreshButton,
+    refreshButton,
+    title,
+    createGame, 
+    linkCreate} = styles;
 
   return (
     <div>
@@ -96,13 +103,13 @@ export default function Home() {
         <div className={filterBar}>
 
           <select onChange={(e) => { handleOrderByName(e) }}>
-            <option value="">--Order Alphabetically--</option>
+            <option>--Order Alphabetically--</option>
             <option value="asc">Ascendant</option>
             <option value="desc">Descendent</option>
           </select>
 
           <select onChange={(e) => { handleOrderByRating(e) }}>
-            <option value="">--Rating--</option>
+            <option>--Rating--</option>
             <option value="max">Max Rating</option>
             <option value="min">Min Rating</option>
           </select>
@@ -115,15 +122,17 @@ export default function Home() {
           </select>
 
           <select onChange={(e) => { handleFilterCreated(e) }}>
-            <option value="">--Filter Games--</option>
+            <option>--Filter Games--</option>
             <option value="All">All Games</option>
             <option value="Created">Created Games</option>
             <option value="From Api">Api Games</option>
           </select>
-
+         
+          <div>
+            <Link to="/videogame" className={linkCreate}>Create Videogame</Link>
+          </div>
+          
           <SearchBar />
-          <Link to="/videogame">Create Videogame</Link>
-
         </div>
 
         <div className={title}>

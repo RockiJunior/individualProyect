@@ -41,7 +41,7 @@ export default function CreateGame() {
             errors.rating = "A Rating Number is Required"
         } if (!form.platforms) {
             errors.platforms = "A Platform is Required"
-        } else{
+        } else {
             return errors;
         }
     };
@@ -65,11 +65,21 @@ export default function CreateGame() {
         })
     };
 
+    function handleDelete(g) {
+       
+        setForm({
+            ...form,
+            genres: form.genres.filter(el => el !== g)
+        })
+
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
         if (Object.values(errors).length > 0) {
             alert('Missing Data to Send Form')
-        } else {
+        }
+        else {
             dispatch(postVideoGame(form));
             alert('Videogame Created');
             setForm({
@@ -151,7 +161,7 @@ export default function CreateGame() {
                 </div>
 
                 <div className={sGenres} >
-                    <select required onChange={(e) =>
+                    <select onChange={(e) =>
                         handleSelect(e)}>
                         {genres.map((el) => (
                             <option key={el.id} value={el.name}>{el.name}</option>
@@ -159,10 +169,12 @@ export default function CreateGame() {
                     </select>
                     <ul>
                         {form.genres.map((el, i) =>
-                            <li key={i} >{el}</li>
+                            <div>
+                                <li key={i + 1}>{el}</li>
+                                <button onClick={() => { handleDelete(el.i) }}>X</button>
+                            </div>
                         )}
                     </ul>
-
                 </div>
 
                 <div>
@@ -175,8 +187,8 @@ export default function CreateGame() {
                     </Link>
                 </div>
 
-
             </form>
+
         </div>
     )
 
