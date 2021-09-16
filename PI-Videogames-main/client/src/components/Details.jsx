@@ -1,32 +1,26 @@
 //Instalations
-import React, { useEffect, useState, useReducer } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 //Actions
-import { getDetails, deleteVideoGameDB } from '../actions/index';
+import { getDetails, deleteVideoGameDB} from '../actions/index';
 //styles
 import styles from './styles/Details.module.css';
 
 export default function Details(props) {
     // console.log(props)
     const dispatch = useDispatch();
-
-    const [_, forceUpdate] = useReducer((x) => x + 1, 0);
-
     const detailsVideoGame = useSelector((state) => state.details);
-    const videoGames = useSelector((state) => state.videogames)
     // console.log(detailsVideoGame)
 
     const [detail, setDetail] = useState([]);
 
-    const [destroy, setDestroy] = useState([]);
 
     const history = useHistory();
 
     useEffect(() => {
         dispatch(getDetails(props.match.params.id));
-        dispatch(deleteVideoGameDB(props.match.params.id));
     }, [dispatch, props.match.params.id])
 
     function handleDetail(e) {
@@ -36,8 +30,7 @@ export default function Details(props) {
     }
 
     function handleDelete() {
-        setDestroy(deleteVideoGameDB(destroy));
-        forceUpdate();
+        dispatch(deleteVideoGameDB(props.match.params.id));
         history.push(`/home`);
     }
     

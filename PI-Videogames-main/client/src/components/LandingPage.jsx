@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from './styles/LandingPage.module.css';
 
 export default function LandingPage() {
-    const { landingPage, title, containerButton, subtitle, button } = styles;
+    const { title, containerButton, subtitle, button } = styles;
     return (
         <div>
             <span className={title}>

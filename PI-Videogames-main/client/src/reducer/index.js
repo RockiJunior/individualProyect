@@ -56,7 +56,7 @@ function rootReducer(state = initialState, action) {
             };
 
         case DELETE_VIDEO_GAME_DB:
-            const eliminated = state.allVideogames.filter(el => el.id !== payload)
+            const eliminated = state.videogames.filter(el => el.id !== payload.id)
             return {
                 ...state,
                 videogames: eliminated

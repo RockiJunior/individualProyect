@@ -1,6 +1,6 @@
 //instalations
 import React from "react";
-import { useState } from "react";
+import { useState, useReducer } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 //Actions
@@ -21,13 +21,12 @@ import SearchBar from "./SearchBar";
 import styles from './styles/Home.module.css';
 
 export default function Home() {
-
-
-  // traigo el dispatch
-  const dispatch = useDispatch(); //dispatch para el redux
+  //en vez de llamar el useEffect en el home, lo haces en el app.js
   //el dispatcher de redux que ejecuta el get, pasado al useEffect
 
-  //en vez de llamar el useEffect en el home, lo haces en el app.js
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  // traigo el dispatch
+  const dispatch = useDispatch(); //dispatch para el redux
 
 
   //Todos los juegos del estado.
@@ -35,25 +34,29 @@ export default function Home() {
   const genres = useSelector((state) => state.genres);
 
   //Estado local vacio para el ordenamiento por nombre
-  const [orderName, setOrderName] = useState('');
+  const [, setOrderName] = useState('');
 
   //Estado local vacio para el ordenamiento por rating
-  const [orderRating, setOrderRating] = useState('');
+  const [, setOrderRating] = useState('');
 
   //======PAGINADO=====
   //Estado de la pagina actual y la cantitad.
   const [currentPage, setCurrentPage] = useState(1);
-  const [videoGamesPP, setvideoGamesPP] = useState(15);
+  const [videoGamesPP, ] = useState(15);
 
   // resultados de la cantidad por pagina
-  const indexOfLastVideoGame = currentPage * videoGamesPP; //15
-  const indexOfFirstVideoGame = indexOfLastVideoGame - videoGamesPP; //0
+  const indexOfLastVideoGame = currentPage * videoGamesPP; // 1 *  15
+  const indexOfFirstVideoGame = indexOfLastVideoGame - videoGamesPP; // 0 
 
   //division del array por la cantidad necesaria por pagina
   let currentVideoGames = allVideoGames.slice(
     indexOfFirstVideoGame,
     indexOfLastVideoGame
   );
+
+  // 1 => 15
+  // 2 => 15
+
 
   const paged = (pageNumbers) => {
     setCurrentPage(pageNumbers);
@@ -64,6 +67,7 @@ export default function Home() {
   function handleClick(e) {
     e.preventDefault();
     dispatch(getVideoGames());
+    forceUpdate();
   }
 
   function handleFilterGenres(e) {
@@ -94,8 +98,9 @@ export default function Home() {
     containerRefreshButton,
     refreshButton,
     title,
-    createGame, 
-    linkCreate} = styles;
+    linkCreate,
+    loading
+  } = styles;
 
   return (
     <div>
@@ -127,18 +132,17 @@ export default function Home() {
             <option value="Created">Created Games</option>
             <option value="From Api">Api Games</option>
           </select>
-         
+
           <div>
             <Link to="/videogame" className={linkCreate}>Create Videogame</Link>
           </div>
-          
+
           <SearchBar />
         </div>
 
         <div className={title}>
           <h1>Video Game Api</h1>
         </div>
-
 
         <div className={containerRefreshButton}>
           <button className={refreshButton} onClick={(e) => { handleClick(e) }}>Refresh</button>
@@ -151,23 +155,26 @@ export default function Home() {
         />
 
         <div className={containerCard}>
-
-          {currentVideoGames?.map((vg) => {
-            return (
-              <div key={vg.id} style={{ maxWidth: "30%", margin: "20px" }}>
-                <Link to={`/videogames/${vg.id}`} style={{ textDecoration: "none" }}>
-                  <CardVideoGame
-                    name={vg.name}
-                    image={vg.image ? vg.image : "https://media.rawg.io/media/games/a8b/a8bf6f31bfbdaf7d4b86c1953c62cee0.jpg"}
-                    genres={vg.createdInDB ? vg.genres.map((el) => el.name).join(' ') : vg.genres.join(' - ')}
-                  />
-                </Link>
-              </div>
-            );
-          })}
+          {currentVideoGames.length > 0 ?
+            currentVideoGames.map((vg) => {
+              return (
+                <div key={vg.id} style={{ maxWidth: "30%", margin: "20px" }}>
+                  <Link to={`/videogames/${vg.id}`} style={{ textDecoration: "none" }}>
+                    <CardVideoGame
+                      name={vg.name}
+                      image={vg.image ? vg.image : "https://media.rawg.io/media/games/a8b/a8bf6f31bfbdaf7d4b86c1953c62cee0.jpg"}
+                      genres={vg.createdInDB ? vg.genres.map((el) => el.name).join(' ') : vg.genres.join(' - ')}
+                    />
+                  </Link>
+                </div>
+              );
+            }) :
+            <div className={loading}>
+              <div></div>
+            </div>
+          }
 
         </div>
-
 
       </div>
 

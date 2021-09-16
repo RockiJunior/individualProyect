@@ -24,6 +24,7 @@ export default function CreateGame(props) {
         platforms: [],
         genres: []
     });
+    console.log(form)
 
     useEffect(() => {
         dispatch(getGenres());
@@ -39,7 +40,7 @@ export default function CreateGame(props) {
             errors.released = "A Date of Creation is Required"
         } if (!form.rating) {
             errors.rating = "A Rating Number is Required"
-        } if (!form.platforms) {
+        } if (!form.platforms.length === 0) {
             errors.platforms = "A Platform is Required"
         } else {
             return errors;
@@ -170,11 +171,11 @@ export default function CreateGame(props) {
                         ))}
                     </select>
                     <ul>
-                        {form.genres.map((el, i) =>
-                            <div className={creater} key={i}>
-                                <li>{el}</li>
-                                <button onClick={() => { handleDelete(el) }}>X</button>
-                            </div>
+                        {form.genres.map((el, i) => 
+                        <div className={creater} key={i}> 
+                            <li>{el}</li>
+                            <button onClick={() => { handleDelete(el) }}>X</button>
+                        </div>
                         )}
                     </ul>
                 </div>

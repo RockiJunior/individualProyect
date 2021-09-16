@@ -83,8 +83,39 @@ const getVideoGames = async() => {
     return getInfoTotal;
 };
 
-//RUTAS
+const filterGames = async(id) => {
+    if (isNaN(id)) {
+        return await Videogame.findOne({
+            where: {
+                id: id
+            },
+            include: {
+                model: Genres,
+                attributes: ['name'],
+                through: {
+                    attributes: [],
+                },
+            }
+        });
+    } else {
+        const response = await axios.get(`${API_URL}games/${id}?key=${API_KEY}`);
+        return {
+            // acc: acc++,
+            id: response.data.id,
+            createdInDB: false,
+            name: response.data.name,
+            image: response.data.background_image,
+            description: response.data.platforms.filter(el => el.requirements_en !== null || el.requirements_ru !== null),
+            released: response.data.released,
+            rating: response.data.rating,
+            platforms: response.data.platforms.map(p => p.platform.name),
+            genres: response.data.genres.map(g => g.name)
+        }
+    }
 
+};
+
+//RUTAS
 router.get(`/`, async(req, res) => {
     let games = await getVideoGames();
     const name = req.query.name;
@@ -96,18 +127,17 @@ router.get(`/`, async(req, res) => {
     } else {
         res.status(200).send(games)
     }
+
 });
 
+
 router.get('/:id', async(req, res) => {
-    let games = await getVideoGames();
     const id = req.params.id;
-    if (id) {
-        let gameId = await games.filter(el => el.id == id);
-        gameId.length ?
-            res.status(200).send(gameId) :
-            res.status(404).send("The id You looking for cannot be Found");
-    } else {
-        res.status(200).send(games)
+    try {
+        let games = await filterGames(id);
+        res.status(200).send([games])
+    } catch (err) {
+        res.status(404).send("The id You looking for cannot be Found");
     }
 });
 
@@ -142,16 +172,38 @@ router.post(`/`, async(req, res) => {
         }
     });
 
-    console.log(createVideoGame);
+    // console.log(createVideoGame);
 
     createVideoGame.addGenres(genreGameDB);
     res.status(200).send("Videogame created successfully")
 });
 
 router.delete('/:id', async(req, res) => {
-    const id = req.params.id;
-    await Videogame.destroy({ where: { id: id } }, { truncate: false })
+    const {
+        id
+    } = req.params;
+
+    const vG = await Videogame.findOne({
+        where: {
+            id: id
+        }
+    })
+
+    await vG.destroy();
     res.status(200).send("Video Game Deleted Successfully");
+});
+
+
+router.put('/:id', async(req, res) => {
+    const id = req.params.id;
+    const game = req.body;
+
+    const vG = await Videogame.update(game, {
+        where: {
+            id: id
+        }
+    });
+    res.status(200).send("Video Game Updated Successfully!!!")
 });
 
 
