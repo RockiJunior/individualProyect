@@ -24,7 +24,7 @@ export default function CreateGame(props) {
         platforms: [],
         genres: []
     });
-    console.log(form)
+    // console.log(form)
 
     useEffect(() => {
         dispatch(getGenres());

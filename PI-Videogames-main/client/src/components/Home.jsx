@@ -1,8 +1,10 @@
 //instalations
 import React from "react";
-import { useState, useReducer } from "react";
+import { useState, useReducer, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+
 //Actions
 import {
   getVideoGames,
@@ -44,15 +46,21 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [videoGamesPP, ] = useState(15);
 
+  
   // resultados de la cantidad por pagina
   const indexOfLastVideoGame = currentPage * videoGamesPP; // 1 *  15
   const indexOfFirstVideoGame = indexOfLastVideoGame - videoGamesPP; // 0 
 
+
+  const [current, setCurrent] = useState([]);
+
+
+  useEffect(() => {
+    setCurrent(
+      allVideoGames.slice(indexOfFirstVideoGame, indexOfLastVideoGame))}, [allVideoGames, indexOfFirstVideoGame, indexOfLastVideoGame]);
+
+
   //division del array por la cantidad necesaria por pagina
-  let currentVideoGames = allVideoGames.slice(
-    indexOfFirstVideoGame,
-    indexOfLastVideoGame
-  );
 
   // 1 => 15
   // 2 => 15
@@ -155,8 +163,8 @@ export default function Home() {
         />
 
         <div className={containerCard}>
-          {currentVideoGames.length > 0 ?
-            currentVideoGames.map((vg) => {
+          {current.length > 0 ?
+            current.map((vg) => {
               return (
                 <div key={vg.id} style={{ maxWidth: "30%", margin: "20px" }}>
                   <Link to={`/videogames/${vg.id}`} style={{ textDecoration: "none" }}>

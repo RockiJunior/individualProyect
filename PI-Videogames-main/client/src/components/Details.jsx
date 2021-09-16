@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 //Actions
-import { getDetails, deleteVideoGameDB, getVideoGames, getGenres } from '../actions/index';
+import { getDetails, deleteVideoGameDB} from '../actions/index';
 //styles
 import styles from './styles/Details.module.css';
 
@@ -29,9 +29,10 @@ export default function Details(props) {
 
     function handleDelete() {
         dispatch(deleteVideoGameDB(props.match.params.id));
-        dispatch(getVideoGames());
-        dispatch(getGenres());
+        // dispatch(getVideoGames());
+        // dispatch(getGenres());
         history.push(`/home`);
+        window.location.replace('');
     }
 
 
