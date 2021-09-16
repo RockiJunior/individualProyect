@@ -105,7 +105,7 @@ const filterGames = async(id) => {
             createdInDB: false,
             name: response.data.name,
             image: response.data.background_image,
-            description: response.data.platforms.filter(el => el.requirements_en !== null || el.requirements_ru !== null),
+            description: response.data.description,
             released: response.data.released,
             rating: response.data.rating,
             platforms: response.data.platforms.map(p => p.platform.name),
@@ -178,17 +178,17 @@ router.post(`/`, async(req, res) => {
     res.status(200).send("Videogame created successfully")
 });
 
+
+//unos metodos extras :')
 router.delete('/:id', async(req, res) => {
     const {
         id
     } = req.params;
-
     const vG = await Videogame.findOne({
         where: {
             id: id
         }
     })
-
     await vG.destroy();
     res.status(200).send("Video Game Deleted Successfully");
 });
@@ -197,7 +197,6 @@ router.delete('/:id', async(req, res) => {
 router.put('/:id', async(req, res) => {
     const id = req.params.id;
     const game = req.body;
-
     const vG = await Videogame.update(game, {
         where: {
             id: id

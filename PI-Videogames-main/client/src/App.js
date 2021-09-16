@@ -14,7 +14,6 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() =>{
-    console.log("HOLA HOLA HOLA")
     dispatch(getVideoGames());
     dispatch(getGenres());
   }, [dispatch]);
