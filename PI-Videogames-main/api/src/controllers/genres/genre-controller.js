@@ -8,9 +8,10 @@ const { Genres } = connection(DB_NAME);
 const getGenresGames = async () => {
 	let allGenres = [];
 	try {
-		const response = await axios.get(`${API_URL}genres?key=${API_KEY}`);
+		const response = await axios.get(
+			`${API_URL}genres?key=${API_KEY}`
+		);
 		let genres = response.data.results.map((el) => el.name);
-		console.log(genres)
 		genres.forEach((el) => {
 			Genres.findOrCreate({
 				where: {

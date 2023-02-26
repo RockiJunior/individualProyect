@@ -8,10 +8,7 @@ const { Videogames, Genres } = connection(DB_NAME);
 const getApiVideoGames = async () => {
 	let games = [];
 	try {
-		//`${API_URL}games?key=${API_KEY}&page=${pagina}???
-		const response = await axios.get(
-			`https://api.rawg.io/api/games?key=a048125597044c678682ee8606ebb406`
-		);
+		const response = await axios.get(`${API_URL}games?key=${API_KEY}`);
 		const resultResponse = response.data.results;
 
 		const pag1 = await axios.get(response.data.next);
@@ -34,10 +31,8 @@ const getApiVideoGames = async () => {
 			...resultPag4,
 		];
 
-		// let acc = 1;
 		games = allPages.map((el) => {
 			return {
-				// acc: acc++,
 				id: el.id,
 				name: el.name,
 				image: el.background_image,
@@ -50,7 +45,6 @@ const getApiVideoGames = async () => {
 				genres: el.genres.map((g) => g.name),
 			};
 		});
-		// console.log(games)
 	} catch (err) {
 		games = {
 			error: "Can't Fetch Video Games",
@@ -97,7 +91,6 @@ const filterGames = async (id) => {
 	} else {
 		const response = await axios.get(`${API_URL}games/${id}?key=${API_KEY}`);
 		return {
-			// acc: acc++,
 			id: response.data.id,
 			createdInDB: false,
 			name: response.data.name,

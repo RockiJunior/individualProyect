@@ -9,7 +9,7 @@ const { Genres } = connection(DB_NAME);
 const getGenresGames = require('../../controllers/genres/genre-controller.js');
 
 router.get(`/`, async (req, res) => {
-	getGenresGames();
+	await getGenresGames();
 	const getGenresDB = await Genres.findAll();
 	if (getGenresDB.length > 0) {
 		res.status(200).send(getGenresDB);

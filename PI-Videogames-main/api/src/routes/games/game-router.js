@@ -5,7 +5,7 @@ const { DB_NAME } = process.env;
 
 const { connection } = require('../../db.js');
 
-const { Videogame, Genres } = connection(DB_NAME);
+const { Videogames, Genres } = connection(DB_NAME);
 
 const {
 	getApiVideoGames,
@@ -52,7 +52,11 @@ router.post(`/`, async (req, res) => {
 		genres,
 	} = req.body;
 
-	const createVideoGame = await Videogame.create({
+	if(!image){
+		image= 'https://media.rawg.io/media/games/a8b/a8bf6f31bfbdaf7d4b86c1953c62cee0.jpg'
+	}
+
+	const createVideoGame = await Videogames.create({
 		id,
 		createdInDB,
 		name,
@@ -77,7 +81,7 @@ router.post(`/`, async (req, res) => {
 //unos metodos extras :')
 router.delete('/:id', async (req, res) => {
 	const { id } = req.params;
-	const vG = await Videogame.findOne({
+	const vG = await Videogames.findOne({
 		where: {
 			id: id,
 		},
@@ -89,7 +93,7 @@ router.delete('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
 	const id = req.params.id;
 	const game = req.body;
-	const vG = await Videogame.update(game, {
+	const vG = await Videogames.update(game, {
 		where: {
 			id: id,
 		},

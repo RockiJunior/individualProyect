@@ -12,7 +12,6 @@ export default function Details(props) {
     // console.log(props)
     const dispatch = useDispatch();
     const detailsVideoGame = useSelector((state) => state.details);
-    console.log(detailsVideoGame)
 
     const [detail, setDetail] = useState([]);
     const history = useHistory();
